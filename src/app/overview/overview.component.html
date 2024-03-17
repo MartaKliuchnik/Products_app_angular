@@ -1,0 +1,13 @@
+<div class="d-flex flex-column align-items-center gap-5">
+  @for (product of products; track product){
+  <div class="d-flex justify-content-between align-items-center card-cont">
+    <img [src]="product.image" [alt]="product.name" />
+    <div class="d-flex flex-column align-items-center">
+      <p>{{ product.name }}</p>
+      @for(company of product.companies; track company){
+      <p>{{ company.name }}</p>
+      }
+    </div>
+  </div>
+  }
+</div>

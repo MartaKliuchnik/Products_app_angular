@@ -27,8 +27,7 @@ const xiaomi: Company = new Company(
   50
 );
 
-const IPHONE_15 =
-  '/Users/marta/Angular_proj/products-app/src/assets/image/player_img.png';
+const IPHONE_15 = '../../assets/image/player_img.png';
 
 export const products: Product[] = [
   new Product(1, 'Iphone 15', IPHONE_15, [apple, samsung]),
