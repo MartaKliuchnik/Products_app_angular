@@ -1,22 +1,17 @@
 import { NgModule } from '@angular/core';
-import { BrowserModule, provideClientHydration } from '@angular/platform-browser';
+import {
+  BrowserModule,
+  provideClientHydration,
+} from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { OverviewComponent } from './overview/overview.component';
+import { ProductsOverviewComponent } from './products-overview/products-overview.component';
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    OverviewComponent
-  ],
-  imports: [
-    BrowserModule,
-    AppRoutingModule
-  ],
-  providers: [
-    provideClientHydration()
-  ],
-  bootstrap: [AppComponent]
+  declarations: [AppComponent, ProductsOverviewComponent],
+  imports: [BrowserModule, AppRoutingModule],
+  providers: [provideClientHydration()],
+  bootstrap: [AppComponent],
 })
-export class AppModule { }
+export class AppModule {}
