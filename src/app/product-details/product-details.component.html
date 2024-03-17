@@ -1,0 +1,12 @@
+<div
+  class="d-flex flex-column align-items-center card border shadow col-md-3 mx-auto card-body"
+>
+  <h4>{{ product.name }}</h4>
+  @for(company of product.companies; track company){
+  <p>{{ company.name }}</p>
+  <p>{{ company.keywords }}</p>
+  <p>{{ company.radius }}</p>
+  <p>{{ company.status }}</p>
+  <p>{{ company.town }}</p>
+  }
+</div>
