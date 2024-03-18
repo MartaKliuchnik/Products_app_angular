@@ -23,12 +23,19 @@ export class ProductDetailsComponent implements OnInit {
     this.newCompanySubscription = this.productsService.newCompany$.subscribe(
       (newCompany) => {
         this.newCompany = newCompany;
-        console.log(this.newCompany);
         if (this.product) {
           this.product.companies.push(newCompany);
         }
       }
     );
+  }
+
+  deleteCompany(productId: number, companyId: number) {
+    this.productsService.deleteCompany(productId, companyId).subscribe(() => {
+      this.product.companies = this.product.companies.filter(
+        (company) => company.id !== companyId
+      );
+    });
   }
 
   ngOnInit() {

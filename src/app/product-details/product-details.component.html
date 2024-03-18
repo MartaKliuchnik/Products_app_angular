@@ -1,22 +1,38 @@
 <div class="d-flex flex-column align-items-center mx-auto mb-5">
   <h4>{{ product.name }}</h4>
 
-  @for(company of product.companies; track company){
-  <div
-    class="d-flex flex-column align-items-center card border shadow col-md-3 mx-auto card-body m-2"
+  <ng-container
+    *ngIf="product.companies && product.companies.length > 0; else noCompanies"
   >
-    <p>Company name: {{ company.name }}</p>
-    <p>Keywords: {{ company.keywords }}</p>
-    <p>Bid amount: {{ company.bidAmount }}</p>
-    <p>Campaign fund: {{ company.campaignFund }}</p>
-    <p>Status: {{ company.status ? "on" : "off" }}</p>
-    <p>
-      Town:
-      {{ company.town }}
-    </p>
-    <p>Radius: {{ company.radius }}</p>
-  </div>
-  }
+    @for(company of product.companies; track company){
+    <div
+      class="d-flex flex-column align-items-center card border shadow col-md-3 mx-auto card-body m-2"
+    >
+      <p>Company name: {{ company.name }}</p>
+      <p>Keywords: {{ company.keywords }}</p>
+      <p>Bid amount: {{ company.bidAmount }}</p>
+      <p>Campaign fund: {{ company.campaignFund }}</p>
+      <p>Status: {{ company.status ? "on" : "off" }}</p>
+      <p>
+        Town:
+        {{ company.town }}
+      </p>
+      <p>Radius: {{ company.radius }}</p>
+
+      <button (click)="deleteCompany(product.id, company.id)">delete</button>
+    </div>
+    }
+  </ng-container>
+  <ng-template #noCompanies>
+    <div class="mt-5 d-flex flex-column align-items-center">
+      <p class="fw-bold font-monospace text-muted">
+        Looks like there are no companies here.
+      </p>
+      <p class="fw-bold font-monospace text-muted">
+        Why not add your first one?
+      </p>
+    </div>
+  </ng-template>
 </div>
 
 <app-add-company-info></app-add-company-info>
