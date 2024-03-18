@@ -1,0 +1,12 @@
+<header class="mb-5">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-dark p-2">
+    <div
+      class="w-100 d-flex align-items-center justify-content-end gap-4 header-cont"
+    >
+      <a *ngIf="!isHomePage" routerLink="/" routerLinkActive="active">Home</a>
+      <p *ngIf="isHomePage" class="welcome-info">
+        Welcome to Our Product Portfolio
+      </p>
+    </div>
+  </nav>
+</header>
