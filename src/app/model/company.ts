@@ -4,27 +4,27 @@ export class Company {
   id: number;
   name: string;
   keywords: string[];
-  //   bidAmount: number;
-  //   fundCompany: number;
+  bidAmount: number;
+  campaignFund: number;
   status: boolean;
-  town: Town;
+  town: Town[];
   radius: number;
 
   constructor(
     id: number,
     name: string,
     keywords: string[],
-    // bidAmount: number,
-    // fundCompany: number,
+    bidAmount: number,
+    campaignFund: number,
     status: boolean,
-    town: Town,
+    town: Town[],
     radius: number
   ) {
     this.id = id;
     this.name = name;
     this.keywords = keywords;
-    // this.bidAmount = bidAmount;
-    // this.fundCompany = fundCompany;
+    this.bidAmount = bidAmount;
+    this.campaignFund = campaignFund;
     this.status = status;
     this.radius = radius;
     this.town = town;

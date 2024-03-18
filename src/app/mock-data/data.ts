@@ -6,24 +6,30 @@ const apple: Company = new Company(
   1,
   'Apple',
   ['phones', 'laptops'],
+  2,
+  20000,
   true,
-  Town.KRAKOW,
+  [Town.KRAKOW, Town.WARSAW],
   20
 );
 const samsung: Company = new Company(
   2,
   'Samsung',
   ['phones'],
+  2,
+  20000,
   true,
-  Town.WARSAW,
+  [Town.WARSAW, Town.KRAKOW],
   10
 );
 const xiaomi: Company = new Company(
   3,
   'XIAOMI',
   ['phones'],
+  2,
+  20000,
   false,
-  Town.KRAKOW,
+  [Town.KRAKOW],
   50
 );
 

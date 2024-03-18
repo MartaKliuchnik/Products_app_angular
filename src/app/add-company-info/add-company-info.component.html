@@ -1,0 +1,77 @@
+<div class="container page">
+  <div class="row">
+    <h1 class="text-xs-center">Add Company Information</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-cont">
+      <fieldset class="form-group">
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Company Name"
+          formControlName="name"
+        />
+      </fieldset>
+
+      <fieldset class="form-group">
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Keywords"
+          formControlName="keywords"
+        />
+      </fieldset>
+
+      <fieldset class="form-group">
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Bid Amount"
+          formControlName="bidAmount"
+        />
+      </fieldset>
+
+      <fieldset class="form-group">
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Campaign fund"
+          formControlName="campaignFund"
+        />
+      </fieldset>
+
+      <fieldset class="form-group">
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Company Status"
+          formControlName="status"
+        />
+      </fieldset>
+
+      <fieldset class="form-group">
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="Town"
+          formControlName="town"
+        />
+      </fieldset>
+
+      <fieldset class="form-group">
+        <input
+          type="text"
+          class="form-control form-control-lg"
+          placeholder="radius"
+          formControlName="radius"
+        />
+      </fieldset>
+
+      <button
+        type="submit"
+        class="btn btn-lg btn-success"
+        [disabled]="!form.valid"
+      >
+        Submit
+      </button>
+    </form>
+  </div>
+</div>
