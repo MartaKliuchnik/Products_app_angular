@@ -2,30 +2,30 @@ import { Company } from '../model/company';
 import { Product } from '../model/product';
 import { Town } from '../model/town';
 
-const apple: Company = new Company(
+const orangeHarvest: Company = new Company(
   1,
-  'Apple',
-  ['phones', 'laptops'],
+  'Orange Harvest',
+  ['fruit'],
   2,
   20000,
   true,
   [Town.KRAKOW, Town.WARSAW],
   20
 );
-const samsung: Company = new Company(
+const fruitful: Company = new Company(
   2,
-  'Samsung',
-  ['phones'],
+  'Fruitful',
+  ['fruit', 'yellow'],
   2,
   20000,
   true,
   [Town.WARSAW, Town.KRAKOW],
   10
 );
-const xiaomi: Company = new Company(
+const freshProduce: Company = new Company(
   3,
-  'XIAOMI',
-  ['phones'],
+  'Fresh Produce',
+  ['fruit', 'citrus'],
   2,
   20000,
   false,
@@ -33,10 +33,12 @@ const xiaomi: Company = new Company(
   50
 );
 
-const IPHONE_15 = '../../assets/image/player_img.png';
+const BANANAS = '../../assets/image/bananas.png';
+const ORANGE = '../../assets/image/orange.png';
+const APPLE = '../../assets/image/apple.png';
 
 export const products: Product[] = [
-  new Product(1, 'Iphone 15', IPHONE_15, [apple, samsung]),
-  new Product(2, 'Iphone 14', IPHONE_15, [xiaomi]),
-  new Product(3, 'Iphone 15 pro', IPHONE_15, [samsung]),
+  new Product(1, 'Orange', ORANGE, [freshProduce, fruitful]),
+  new Product(2, 'Apple', APPLE, [orangeHarvest]),
+  new Product(3, 'Banana', BANANAS, [fruitful]),
 ];

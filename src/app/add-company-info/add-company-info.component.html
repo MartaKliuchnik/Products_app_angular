@@ -39,28 +39,45 @@
       </fieldset>
 
       <fieldset class="form-group">
-        <input
-          type="text"
-          class="form-control form-control-lg"
-          placeholder="Company Status"
-          formControlName="status"
-        />
+        <label>Status:</label>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="statusOn"
+            name="status"
+            [value]="true"
+            formControlName="status"
+          />
+          <label class="form-check-label" for="statusOn">On</label>
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="radio"
+            id="statusOff"
+            name="status"
+            [value]="false"
+            formControlName="status"
+          />
+          <label class="form-check-label" for="statusOff">Off</label>
+        </div>
+      </fieldset>
+
+      <fieldset class="form-group">
+        <select id="town" formControlName="town" class="form-control">
+          <option value="" disabled>Town</option>
+          @for(town of towns; track town){
+          <option [value]="town">{{ town }}</option>
+          }
+        </select>
       </fieldset>
 
       <fieldset class="form-group">
         <input
           type="text"
           class="form-control form-control-lg"
-          placeholder="Town"
-          formControlName="town"
-        />
-      </fieldset>
-
-      <fieldset class="form-group">
-        <input
-          type="text"
-          class="form-control form-control-lg"
-          placeholder="radius"
+          placeholder="Radius (km)"
           formControlName="radius"
         />
       </fieldset>

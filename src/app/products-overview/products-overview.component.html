@@ -1,10 +1,12 @@
 <div class="d-flex flex-column align-items-center gap-5">
   @for (product of products; track product){
   <div
-    class="d-flex justify-content-between align-items-center card-cont"
+    class="d-flex flex-column p-2 justify-content-between align-items-center card-cont"
     (click)="goToProductDetails(product.id)"
   >
-    <img [src]="product.image" [alt]="product.name" />
+    <div class="icon-cont">
+      <img [src]="product.image" [alt]="product.name" />
+    </div>
     <div class="d-flex flex-column align-items-center">
       <p>{{ product.name }}</p>
     </div>

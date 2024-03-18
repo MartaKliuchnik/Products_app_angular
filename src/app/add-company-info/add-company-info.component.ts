@@ -8,6 +8,7 @@ import {
   Validators,
 } from '@angular/forms';
 import { ProductsService } from '../service/products.service';
+import { Town } from '../model/town';
 
 @Component({
   selector: 'app-add-company-info',
@@ -16,8 +17,10 @@ import { ProductsService } from '../service/products.service';
   standalone: true,
   imports: [ReactiveFormsModule],
 })
-export class AddCompanyInfoComponent {
+export class AddCompanyInfoComponent implements OnInit {
   form: FormGroup;
+  towns!: Town[];
+  // keywords: string[] = ['Angular', 'React', 'Vue.js', 'TypeScript'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -26,12 +29,22 @@ export class AddCompanyInfoComponent {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
-      bidAmount: ['', Validators.required],
+      bidAmount: ['', [Validators.required, Validators.min(10)]],
       campaignFund: ['', Validators.required],
       status: ['', Validators.required],
       town: ['', Validators.required],
-      radius: ['', Validators.required],
+      radius: ['', [Validators.required, Validators.min(0)]],
     });
+  }
+
+  ngOnInit(): void {
+    this.towns = [
+      Town.KRAKOW,
+      Town.WARSAW,
+      Town.GDANSK,
+      Town.POZNAN,
+      Town.WROCLAW,
+    ];
   }
 
   onSubmit() {
