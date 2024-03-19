@@ -19,22 +19,6 @@ export class ProductDetailsComponent implements OnInit {
     private router: Router
   ) {}
 
-  deleteCompany(productId: number, companyId: number) {
-    this.productsService.deleteCompany(productId, companyId).subscribe(() => {
-      this.product.companies = this.product.companies.filter(
-        (company) => company.id !== companyId
-      );
-    });
-  }
-
-  goToAddCompanyPage(productId: number) {
-    this.router.navigate(['add-new-company', productId]);
-  }
-
-  goToUpdateCompany(productId: number, companyId: number | undefined) {
-    this.router.navigate(['update-company', productId, companyId]);
-  }
-
   ngOnInit() {
     const id = +this.route.snapshot.params['id'];
     this.productsService
@@ -46,5 +30,21 @@ export class ProductDetailsComponent implements OnInit {
           this.product = product;
         }
       });
+  }
+
+  deleteCompany(productId: number, companyId: number) {
+    this.productsService
+      .deleteCompany(productId, companyId)
+      .subscribe((product: Product) => {
+        this.product = product;
+      });
+  }
+
+  goToAddCompanyPage(productId: number) {
+    this.router.navigate(['add-new-company', productId]);
+  }
+
+  goToUpdateCompany(productId: number, companyId: number | undefined) {
+    this.router.navigate(['update-company', productId, companyId]);
   }
 }

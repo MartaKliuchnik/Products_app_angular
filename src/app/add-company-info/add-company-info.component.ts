@@ -11,6 +11,7 @@ import {
 import { ProductsService } from '../service/products.service';
 import { Town } from '../model/town';
 import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-add-company-info',
@@ -96,24 +97,30 @@ export class AddCompanyInfoComponent implements OnInit {
       };
 
       const id = +this.route.snapshot.params['id'];
-      this.productsService.addNewCompany(newCompany, id).subscribe((data) => {
-        const countdownSeconds = 3;
-        if (data) {
-          let remainingSeconds = countdownSeconds;
-          const countdownInterval = setInterval(() => {
-            remainingSeconds--;
-            this.companyMessage = `Company has created. Redirecting in ${remainingSeconds} seconds...`;
-            if (remainingSeconds <= 0) {
-              clearInterval(countdownInterval);
-              this.companyMessage = undefined;
-              this.router.navigate(['product-details', id]);
-              this.form.reset();
-            }
-          }, 1000);
-        }
-      });
-    } else {
-      console.error('Form is invalid');
+      this.productsService
+        .addNewCompany(newCompany, id)
+        .pipe(
+          catchError(() => {
+            console.error('Form is invalid');
+            return of(null);
+          })
+        )
+        .subscribe((data) => {
+          const countdownSeconds = 3;
+          if (data) {
+            let remainingSeconds = countdownSeconds;
+            const countdownInterval = setInterval(() => {
+              remainingSeconds--;
+              this.companyMessage = `Company has created. Redirecting in ${remainingSeconds} seconds...`;
+              if (remainingSeconds <= 0) {
+                clearInterval(countdownInterval);
+                this.companyMessage = undefined;
+                this.router.navigate(['product-details', id]);
+                this.form.reset();
+              }
+            }, 1000);
+          }
+        });
     }
   }
 }

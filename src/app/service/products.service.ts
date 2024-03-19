@@ -10,15 +10,23 @@ import { throwError } from 'rxjs';
 })
 export class ProductsService {
   products: Product[] = products;
+  private readonly productsKey = 'products';
 
-  constructor() {}
+  constructor() {
+    let currentData = this.getDataFromLocalStorage();
+    if (!currentData) {
+      this.setDataToLocalStorage();
+    } else {
+      this.products = currentData;
+    }
+  }
 
   getProducts(): Observable<Product[]> {
-    return of(products);
+    return of(this.products);
   }
 
   getProduct(id: number): Observable<Product | undefined> {
-    const product = products.find((product) => product.id === id);
+    const product = this.products.find((product) => product.id === id);
     return of(product);
   }
 
@@ -47,12 +55,11 @@ export class ProductsService {
     const productIndex = this.products.findIndex(
       (product) => product.id === productId
     );
-
     if (productIndex !== -1) {
       const product = this.products[productIndex];
       product.companies.push(newCompany);
-      console.log(product.companies);
-      return of(product.companies);
+      this.setDataToLocalStorage();
+      return of(true);
     } else {
       return throwError(() => {
         return 'Product not found';
@@ -74,6 +81,7 @@ export class ProductsService {
       if (companyIndex !== -1) {
         const updatedCompanyWithId = { ...updatedCompany, id: companyId };
         product.companies[companyIndex] = updatedCompanyWithId;
+        this.setDataToLocalStorage();
         return of(product.companies[companyIndex]);
       } else {
         return throwError(() => {
@@ -87,20 +95,30 @@ export class ProductsService {
     }
   }
 
-  deleteCompany(productId: number, companyId: number): Observable<void> {
+  deleteCompany(productId: number, companyId: number): Observable<Product> {
     const productIndex = this.products.findIndex(
       (product) => product.id === productId
     );
     if (productIndex !== -1) {
       const product = this.products[productIndex];
-      product.companies = product.companies.filter(
+      this.products[productId].companies = product.companies.filter(
         (company) => company.id !== companyId
       );
-      return of(undefined);
+
+      this.setDataToLocalStorage();
+      return of(this.products[productId]);
     } else {
       return throwError(() => {
         return 'Product not found';
       });
     }
+  }
+
+  setDataToLocalStorage(): void {
+    localStorage.setItem(this.productsKey, JSON.stringify(this.products));
+  }
+
+  getDataFromLocalStorage(): Product[] {
+    return JSON.parse(localStorage.getItem(this.productsKey));
   }
 }
