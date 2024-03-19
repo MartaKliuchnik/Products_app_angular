@@ -10,6 +10,7 @@ import {
 } from '@angular/forms';
 import { ProductsService } from '../service/products.service';
 import { Town } from '../model/town';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-add-company-info',
@@ -21,6 +22,7 @@ import { Town } from '../model/town';
 export class AddCompanyInfoComponent implements OnInit {
   form: FormGroup;
   towns!: Town[];
+  companyMessage: string | undefined;
   showNameError: boolean = false;
   showKeywordsError: boolean = false;
   showBidAmountError: boolean = false;
@@ -29,7 +31,9 @@ export class AddCompanyInfoComponent implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
@@ -91,9 +95,23 @@ export class AddCompanyInfoComponent implements OnInit {
         radius: formData.radius,
       };
 
-      this.productsService.setNewCompany(newCompany);
-
-      this.form.reset();
+      const id = +this.route.snapshot.params['id'];
+      this.productsService.addNewCompany(newCompany, id).subscribe((data) => {
+        const countdownSeconds = 3;
+        if (data) {
+          let remainingSeconds = countdownSeconds;
+          const countdownInterval = setInterval(() => {
+            remainingSeconds--;
+            this.companyMessage = `Company has created. Redirecting in ${remainingSeconds} seconds...`;
+            if (remainingSeconds <= 0) {
+              clearInterval(countdownInterval);
+              this.companyMessage = undefined;
+              this.router.navigate(['product-details', id]);
+              this.form.reset();
+            }
+          }, 1000);
+        }
+      });
     } else {
       console.error('Form is invalid');
     }

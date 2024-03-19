@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Product } from '../model/product';
 import { products } from '../mock-data/data';
 import { Company } from '../model/company';
@@ -9,8 +9,6 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductsService {
-  private newCompanySubject = new Subject<Company>();
-  newCompany$ = this.newCompanySubject.asObservable();
   products: Product[] = products;
 
   constructor() {}
@@ -45,8 +43,21 @@ export class ProductsService {
     }
   }
 
-  setNewCompany(newCompany: Company) {
-    this.newCompanySubject.next(newCompany);
+  addNewCompany(newCompany: Company, productId: number) {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === productId
+    );
+
+    if (productIndex !== -1) {
+      const product = this.products[productIndex];
+      product.companies.push(newCompany);
+      console.log(product.companies);
+      return of(product.companies);
+    } else {
+      return throwError(() => {
+        return 'Product not found';
+      });
+    }
   }
 
   updateCompany(updatedCompany: Company, productId: number, companyId: number) {

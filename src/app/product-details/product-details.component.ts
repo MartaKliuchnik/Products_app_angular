@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../service/products.service';
 import { Product } from '../model/product';
 import { Company } from '../model/company';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -13,22 +12,12 @@ import { Subscription } from 'rxjs';
 export class ProductDetailsComponent implements OnInit {
   product!: Product;
   newCompany: Company | undefined;
-  private newCompanySubscription: Subscription;
 
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService,
     private router: Router
-  ) {
-    this.newCompanySubscription = this.productsService.newCompany$.subscribe(
-      (newCompany) => {
-        this.newCompany = newCompany;
-        if (this.product) {
-          this.product.companies.push(newCompany);
-        }
-      }
-    );
-  }
+  ) {}
 
   deleteCompany(productId: number, companyId: number) {
     this.productsService.deleteCompany(productId, companyId).subscribe(() => {
@@ -36,6 +25,10 @@ export class ProductDetailsComponent implements OnInit {
         (company) => company.id !== companyId
       );
     });
+  }
+
+  goToAddCompanyPage(productId: number) {
+    this.router.navigate(['add-new-company', productId]);
   }
 
   goToUpdateCompany(productId: number, companyId: number | undefined) {
@@ -53,9 +46,5 @@ export class ProductDetailsComponent implements OnInit {
           this.product = product;
         }
       });
-  }
-
-  ngOnDestroy() {
-    this.newCompanySubscription.unsubscribe();
   }
 }

@@ -1,7 +1,7 @@
 <div class="container page">
-  <div class="row">
-    <h1 class="text-xs-center">Add Company Information</h1>
-    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="form-cont">
+  <div class="row justify-content-center">
+    <h1 class="text-xs-center text-center">Add Company Information</h1>
+    <form [formGroup]="form" (ngSubmit)="onSubmit()" class="mt-4 form-cont">
       <fieldset class="form-group">
         <input
           type="text"
@@ -127,9 +127,10 @@
         }}
       </fieldset>
 
+      <p>{{ companyMessage }}</p>
       <button
         type="submit"
-        class="btn btn-lg btn-success"
+        class="btn btn-lg btn-success mt-4"
         [disabled]="!form.valid"
       >
         Submit

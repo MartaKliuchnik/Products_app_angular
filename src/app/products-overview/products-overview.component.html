@@ -1,15 +1,19 @@
-<div class="d-flex flex-column align-items-center gap-5">
-  @for (product of products; track product){
-  <div
-    class="d-flex flex-column p-2 justify-content-between align-items-center card-cont"
-    (click)="goToProductDetails(product.id)"
-  >
-    <div class="icon-cont">
-      <img [src]="product.image" [alt]="product.name" />
+<div class="container">
+  <div class="row justify-content-center">
+    @for (product of products; track product){
+    <div class="col-lg-3 col-md-4 col-sm-6 m-4">
+      <div
+        class="d-flex flex-column p-2 justify-content-between align-items-center card-cont"
+        (click)="goToProductDetails(product.id)"
+      >
+        <div class="icon-cont">
+          <img [src]="product.image" [alt]="product.name" />
+        </div>
+        <div class="d-flex flex-column align-items-center">
+          <p>{{ product.name }}</p>
+        </div>
+      </div>
     </div>
-    <div class="d-flex flex-column align-items-center">
-      <p>{{ product.name }}</p>
-    </div>
+    }
   </div>
-  }
 </div>
