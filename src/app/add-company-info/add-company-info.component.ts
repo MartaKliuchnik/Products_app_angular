@@ -1,5 +1,6 @@
-import { Component, OnInit, booleanAttribute } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Company } from '../model/company';
+import { ValidationErrors } from '@angular/forms';
 
 import {
   FormBuilder,
@@ -20,7 +21,11 @@ import { Town } from '../model/town';
 export class AddCompanyInfoComponent implements OnInit {
   form: FormGroup;
   towns!: Town[];
-  // keywords: string[] = ['Angular', 'React', 'Vue.js', 'TypeScript'];
+  showNameError: boolean = false;
+  showKeywordsError: boolean = false;
+  showBidAmountError: boolean = false;
+  showCampaignFundError: boolean = false;
+  showRadiusError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,11 +34,17 @@ export class AddCompanyInfoComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
-      bidAmount: ['', [Validators.required, Validators.min(10)]],
-      campaignFund: ['', Validators.required],
+      bidAmount: [
+        '',
+        [Validators.required, Validators.min(10), this.validateNumber],
+      ],
+      campaignFund: ['', Validators.required, this.validateNumberAsync],
       status: ['', Validators.required],
       town: ['', Validators.required],
-      radius: ['', [Validators.required, Validators.min(0)]],
+      radius: [
+        '',
+        [Validators.required, Validators.min(0), this.validateNumber],
+      ],
     });
   }
 
@@ -45,6 +56,25 @@ export class AddCompanyInfoComponent implements OnInit {
       Town.POZNAN,
       Town.WROCLAW,
     ];
+  }
+
+  validateNumber(checkItem: any) {
+    const value = checkItem.value;
+    if (isNaN(value)) {
+      return { invalidNumber: true };
+    }
+    return null;
+  }
+
+  validateNumberAsync(checkItem: any): Promise<ValidationErrors | null> {
+    return new Promise((resolve, reject) => {
+      const value = checkItem.value;
+      if (isNaN(value)) {
+        resolve({ invalidNumber: true });
+      } else {
+        resolve(null);
+      }
+    });
   }
 
   onSubmit() {

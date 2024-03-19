@@ -13,6 +13,7 @@ import { AddCompanyInfoComponent } from './add-company-info/add-company-info.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { UpdateCompanyInfoComponent } from './update-company-info/update-company-info.component';
+import { CommonModule } from '@angular/common';
 
 @NgModule({
   declarations: [
@@ -24,6 +25,7 @@ import { UpdateCompanyInfoComponent } from './update-company-info/update-company
     UpdateCompanyInfoComponent,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,
