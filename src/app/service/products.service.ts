@@ -24,8 +24,56 @@ export class ProductsService {
     return of(product);
   }
 
+  getCompany(
+    productId: number,
+    companyId: number
+  ): Observable<Company | undefined> {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === +productId
+    );
+
+    if (productIndex !== -1) {
+      const product = this.products[productIndex];
+      const company = product.companies.find(
+        (company) => company.id === +companyId
+      );
+      return of(company);
+    } else {
+      return throwError(() => {
+        return 'Product not found';
+      });
+    }
+  }
+
   setNewCompany(newCompany: Company) {
     this.newCompanySubject.next(newCompany);
+  }
+
+  updateCompany(updatedCompany: Company, productId: number, companyId: number) {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === productId
+    );
+
+    if (productIndex !== -1) {
+      const product = this.products[productIndex];
+      const companyIndex = product.companies.findIndex(
+        (company) => company.id === companyId
+      );
+
+      if (companyIndex !== -1) {
+        const updatedCompanyWithId = { ...updatedCompany, id: companyId };
+        product.companies[companyIndex] = updatedCompanyWithId;
+        return of(product.companies[companyIndex]);
+      } else {
+        return throwError(() => {
+          return 'Company not found in product';
+        });
+      }
+    } else {
+      return throwError(() => {
+        return 'Product not found';
+      });
+    }
   }
 
   deleteCompany(productId: number, companyId: number): Observable<void> {
@@ -39,20 +87,9 @@ export class ProductsService {
       );
       return of(undefined);
     } else {
-      return throwError('Product not found');
+      return throwError(() => {
+        return 'Product not found';
+      });
     }
-    // const productIndex = this.products.findIndex(
-    //   (product) => product.id === idProduct
-    // );
-    // if (productIndex !== -1) {
-    //   const product = this.products[productIndex];
-    //   product.companies = product.companies.filter(
-    //     (company) => company.id !== idCompany
-    //   );
-    //   console.log(product.companies);
-    //   return of(undefined);
-    // } else {
-    //   return throwError('Product not found');
-    // }
   }
 }

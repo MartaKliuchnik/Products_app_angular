@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { ProductsOverviewComponent } from './products-overview/products-overview.component';
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { UpdateCompanyInfoComponent } from './update-company-info/update-company-info.component';
 
 const routes: Routes = [
   {
@@ -17,6 +18,10 @@ const routes: Routes = [
   {
     path: 'product-details/:id',
     component: ProductDetailsComponent,
+  },
+  {
+    path: 'update-company/:idProd/:idCom',
+    component: UpdateCompanyInfoComponent,
   },
   {
     path: 'not-found',

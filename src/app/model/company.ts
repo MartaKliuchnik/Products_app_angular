@@ -7,7 +7,7 @@ export class Company {
   bidAmount: number;
   campaignFund: number;
   status: boolean;
-  town: Town[];
+  town: Town;
   radius: number;
 
   constructor(
@@ -17,7 +17,7 @@ export class Company {
     bidAmount: number,
     campaignFund: number,
     status: boolean,
-    town: Town[],
+    town: Town,
     radius: number
   ) {
     this.id = id;

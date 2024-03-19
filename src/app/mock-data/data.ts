@@ -9,7 +9,7 @@ const orangeHarvest: Company = new Company(
   2,
   20000,
   true,
-  [Town.KRAKOW, Town.WARSAW],
+  Town.WARSAW,
   20
 );
 const fruitful: Company = new Company(
@@ -19,7 +19,7 @@ const fruitful: Company = new Company(
   2,
   20000,
   true,
-  [Town.WARSAW, Town.KRAKOW],
+  Town.KRAKOW,
   10
 );
 const freshProduce: Company = new Company(
@@ -29,7 +29,7 @@ const freshProduce: Company = new Company(
   2,
   20000,
   false,
-  [Town.KRAKOW],
+  Town.KRAKOW,
   50
 );
 

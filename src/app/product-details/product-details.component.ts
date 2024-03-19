@@ -38,6 +38,10 @@ export class ProductDetailsComponent implements OnInit {
     });
   }
 
+  goToUpdateCompany(productId: number, companyId: number | undefined) {
+    this.router.navigate(['update-company', productId, companyId]);
+  }
+
   ngOnInit() {
     const id = +this.route.snapshot.params['id'];
     this.productsService

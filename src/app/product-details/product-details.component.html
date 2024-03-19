@@ -1,9 +1,8 @@
 <div class="d-flex flex-column align-items-center mx-auto mb-5">
   <h4>{{ product.name }}</h4>
 
-  <ng-container
-    *ngIf="product.companies && product.companies.length > 0; else noCompanies"
-  >
+  @if(product.companies && product.companies.length > 0){
+  <ng-container>
     @for(company of product.companies; track company){
     <div
       class="d-flex flex-column align-items-center card border shadow col-md-3 mx-auto card-body m-2"
@@ -20,10 +19,14 @@
       <p>Radius (km): {{ company.radius }}</p>
 
       <button (click)="deleteCompany(product.id, company.id)">delete</button>
+      <button class="mt-4" (click)="goToUpdateCompany(product.id, company.id)">
+        update
+      </button>
     </div>
     }
   </ng-container>
-  <ng-template #noCompanies>
+  } @else {
+  <ng-template>
     <div class="mt-5 d-flex flex-column align-items-center">
       <p class="fw-bold font-monospace text-muted">
         Looks like there are no companies here.
@@ -33,6 +36,7 @@
       </p>
     </div>
   </ng-template>
+  }
 </div>
 
 <app-add-company-info></app-add-company-info>
