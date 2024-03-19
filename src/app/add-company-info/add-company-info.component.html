@@ -17,7 +17,8 @@
           class="form-control form-control-lg"
           placeholder="Keywords"
           formControlName="keywords"
-          appTypeahead
+          (input)="checkKeywords($event)"
+          #keywords
         />
       </fieldset>
 

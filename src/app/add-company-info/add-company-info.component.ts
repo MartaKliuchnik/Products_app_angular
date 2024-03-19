@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Company } from '../model/company';
 
 import {
@@ -18,8 +18,16 @@ import { Town } from '../model/town';
   imports: [ReactiveFormsModule],
 })
 export class AddCompanyInfoComponent implements OnInit {
+  @ViewChild('keywords') keywordInput!: ElementRef;
   form: FormGroup;
   towns!: Town[];
+  predefinedKeywords: string[] = [
+    'apple',
+    'apricos',
+    'banana',
+    'orange',
+    'pear',
+  ];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -44,6 +52,17 @@ export class AddCompanyInfoComponent implements OnInit {
       Town.POZNAN,
       Town.WROCLAW,
     ];
+  }
+
+  checkKeywords(event: Event) {
+    let currentValue = this.predefinedKeywords.filter((keyword: string) =>
+      keyword.toLowerCase().startsWith((event.target as HTMLInputElement).value)
+    );
+
+    if (currentValue) {
+      // this.form.get('keywords')?.setValue(currentValue);
+      this.keywordInput.nativeElement.placeholder = currentValue;
+    }
   }
 
   onSubmit() {

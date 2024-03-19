@@ -92,4 +92,12 @@ export class ProductsService {
       });
     }
   }
+
+  getDataToStarage(key: string) {
+    return localStorage.getItem(key);
+  }
+
+  setDataToStarage(key: string, value: string) {
+    return localStorage.setItem(key, value);
+  }
 }
