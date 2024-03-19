@@ -13,6 +13,8 @@ import { AddCompanyInfoComponent } from './add-company-info/add-company-info.com
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { UpdateCompanyInfoComponent } from './update-company-info/update-company-info.component';
+import { CommonModule } from '@angular/common';
+import { TypeaheadDirective } from './typeahead.directive';
 
 @NgModule({
   declarations: [
@@ -22,6 +24,7 @@ import { UpdateCompanyInfoComponent } from './update-company-info/update-company
     NotFoundComponent,
     HeaderComponent,
     UpdateCompanyInfoComponent,
+    TypeaheadDirective,
   ],
   imports: [
     BrowserModule,
@@ -29,6 +32,7 @@ import { UpdateCompanyInfoComponent } from './update-company-info/update-company
     FormsModule,
     ReactiveFormsModule,
     AddCompanyInfoComponent,
+    CommonModule,
   ],
   providers: [provideClientHydration()],
   bootstrap: [AppComponent],

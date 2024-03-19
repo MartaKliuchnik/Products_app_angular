@@ -1,4 +1,4 @@
-import { Component, OnInit, booleanAttribute } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Company } from '../model/company';
 
 import {
@@ -20,7 +20,6 @@ import { Town } from '../model/town';
 export class AddCompanyInfoComponent implements OnInit {
   form: FormGroup;
   towns!: Town[];
-  // keywords: string[] = ['Angular', 'React', 'Vue.js', 'TypeScript'];
 
   constructor(
     private formBuilder: FormBuilder,
