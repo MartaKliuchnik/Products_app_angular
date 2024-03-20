@@ -1,6 +1,18 @@
-# ProductsApp
+![products_app_angular](https://github.com/MartaKliuchnik/Products_app_angular/assets/101942611/e3c00883-f3f3-49c4-b84d-2d96945d942d)
 
+**Products App**
+
+There is a web application developed using Angular framework. It allows users to view, manage products and their company.
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 17.3.0.
+
+Used web-technologies:
+- Angular: Frontend framework for building the user interface.
+- TypeScript: Programming language used with Angular.
+- RxJS: Library for reactive programming.
+- Bootstrap: Frontend component library for styling.
+- HTML/SASS: Markup and styling for the user interface.
+
+link: https://products-app-angular.vercel.app/products-overview
 
 ## Development server
 
