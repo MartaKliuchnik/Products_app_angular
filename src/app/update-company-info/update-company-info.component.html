@@ -11,9 +11,16 @@
         <input
           type="text"
           class="form-control form-control-lg"
-          placeholder="Company Name"
+          placeholder="Company name"
           formControlName="name"
+          (focus)="showNameError = true"
+          (blur)="showNameError = false"
         />
+        @if(showNameError && form.get('name')?.invalid &&
+        [form.get('name')?.dirty || form.get('name')?.touched]){
+        @if(form.get('name')?.errors?.["required"]){
+        <div class="text-muted pt-2">Company name is required.</div>
+        } }
       </fieldset>
 
       <fieldset class="form-group">
@@ -22,16 +29,36 @@
           class="form-control form-control-lg"
           placeholder="Keywords"
           formControlName="keywords"
+          (focus)="showKeywordsError = true"
+          (blur)="showKeywordsError = false"
         />
+        @if(showKeywordsError && form.get('keywords')?.invalid &&
+        [form.get('keywords')?.dirty || form.get('keywords')?.touched]){
+        @if(form.get('keywords')?.errors?.["required"]){
+        <div class="text-muted pt-2">Keywords is required.</div>
+        } }
       </fieldset>
 
       <fieldset class="form-group">
         <input
           type="text"
           class="form-control form-control-lg"
-          placeholder="Bid Amount"
+          placeholder="Bid amount"
           formControlName="bidAmount"
+          (focus)="showBidAmountError = true"
+          (blur)="showBidAmountError = false"
         />
+        @if(showBidAmountError && form.get('bidAmount')?.invalid &&
+        [form.get('bidAmount')?.dirty || form.get('bidAmount')?.touched]){
+        @if(form.get('bidAmount')?.errors?.["required"]){
+        <div class="text-muted pt-2">Bid amount is required.</div>
+        } @if(form.get('bidAmount')?.errors?.["min"]){
+        <div class="text-muted pt-2">
+          Bid amount must be at least 10 the minimum amount.
+        </div>
+        } @if(form.get('bidAmount')?.errors?.["invalidNumber"]){
+        <div class="text-muted pt-2">Bid amount must be a valid number.</div>
+        }}
       </fieldset>
 
       <fieldset class="form-group">
@@ -40,7 +67,16 @@
           class="form-control form-control-lg"
           placeholder="Campaign fund"
           formControlName="campaignFund"
+          (focus)="showCampaignFundError = true"
+          (blur)="showCampaignFundError = false"
         />
+        @if(showCampaignFundError && form.get('campaignFund')?.invalid &&
+        [form.get('campaignFund')?.dirty || form.get('campaignFund')?.touched]){
+        @if(form.get('campaignFund')?.errors?.["required"]){
+        <div class="text-muted pt-2">Campaign fund is required.</div>
+        } @if(form.get('campaignFund')?.errors?.["invalidNumber"]){
+        <div class="text-muted pt-2">Campaign fund must be a valid number.</div>
+        } }
       </fieldset>
 
       <fieldset class="form-group">
@@ -84,12 +120,25 @@
           class="form-control form-control-lg"
           placeholder="Radius (km)"
           formControlName="radius"
+          (focus)="showRadiusError = true"
+          (blur)="showRadiusError = false"
         />
+        @if(showRadiusError && form.get('radius')?.invalid &&
+        [form.get('radius')?.dirty || form.get('radius')?.touched]){
+        @if(form.get('radius')?.errors?.["required"]){
+        <div class="text-muted pt-2">Radius (in km) is required.</div>
+        } @if(form.get('radius')?.errors?.["invalidNumber"]){
+        <div class="text-muted pt-2">Radius must be a valid number.</div>
+        }}
       </fieldset>
 
       <p>{{ companyMessage }}</p>
 
-      <button type="submit" class="btn btn-lg btn-success">
+      <button
+        type="submit"
+        class="btn btn-lg btn-success"
+        [disabled]="!form.valid"
+      >
         Update Company
       </button>
     </form>

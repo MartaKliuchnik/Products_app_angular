@@ -2,7 +2,12 @@ import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../service/products.service';
 import { Company } from '../model/company';
-import { FormBuilder, FormGroup, Validators } from '@angular/forms';
+import {
+  FormBuilder,
+  FormGroup,
+  ValidationErrors,
+  Validators,
+} from '@angular/forms';
 import { Town } from '../model/town';
 
 @Component({
@@ -15,6 +20,11 @@ export class UpdateCompanyInfoComponent implements OnInit {
   form: FormGroup;
   towns!: Town[];
   companyMessage: string | undefined;
+  showNameError: boolean = false;
+  showKeywordsError: boolean = false;
+  showBidAmountError: boolean = false;
+  showCampaignFundError: boolean = false;
+  showRadiusError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -25,11 +35,17 @@ export class UpdateCompanyInfoComponent implements OnInit {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
-      bidAmount: ['', [Validators.required, Validators.min(10)]],
-      campaignFund: ['', Validators.required],
+      bidAmount: [
+        '',
+        [Validators.required, Validators.min(10), this.validateNumber],
+      ],
+      campaignFund: ['', Validators.required, this.validateNumberAsync],
       status: ['', Validators.required],
       town: ['', Validators.required],
-      radius: ['', [Validators.required, Validators.min(0)]],
+      radius: [
+        '',
+        [Validators.required, Validators.min(0), this.validateNumber],
+      ],
     });
   }
 
@@ -65,19 +81,45 @@ export class UpdateCompanyInfoComponent implements OnInit {
     ];
   }
 
+  validateNumber(checkItem: any) {
+    const value = checkItem.value;
+    if (isNaN(value)) {
+      return { invalidNumber: true };
+    }
+    return null;
+  }
+
+  validateNumberAsync(checkItem: any): Promise<ValidationErrors | null> {
+    return new Promise((resolve, reject) => {
+      const value = checkItem.value;
+      if (isNaN(value)) {
+        resolve({ invalidNumber: true });
+      } else {
+        resolve(null);
+      }
+    });
+  }
+
   onSubmit(updatedCompany: Company) {
     const idProduct = +this.route.snapshot.params['idProd'];
     const idCompany = +this.route.snapshot.params['idCom'];
+    const countdownSeconds = 3;
+
     this.productsService
       .updateCompany(updatedCompany, idProduct, idCompany)
       .subscribe((data) => {
         if (data) {
-          this.companyMessage = 'Company has updated';
+          let remainingSeconds = countdownSeconds;
+          const countdownInterval = setInterval(() => {
+            remainingSeconds--;
+            this.companyMessage = `Company has updated. Redirecting in ${remainingSeconds} seconds...`;
+            if (remainingSeconds <= 0) {
+              clearInterval(countdownInterval);
+              this.companyMessage = undefined;
+              this.router.navigate(['product-details', idProduct]);
+            }
+          }, 1000);
         }
       });
-    setTimeout(() => {
-      this.companyMessage = undefined;
-      this.router.navigate(['product-details', idProduct]);
-    }, 2000);
   }
 }

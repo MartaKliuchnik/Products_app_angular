@@ -32,6 +32,16 @@ const freshProduce: Company = new Company(
   Town.KRAKOW,
   50
 );
+const africaProduce: Company = new Company(
+  4,
+  'Fresh Produce',
+  ['fruit', 'citrus'],
+  2,
+  20000,
+  false,
+  Town.WROCLAW,
+  50
+);
 
 const BANANAS = '../../assets/image/bananas.png';
 const ORANGE = '../../assets/image/orange.png';
@@ -41,4 +51,15 @@ export const products: Product[] = [
   new Product(1, 'Orange', ORANGE, [freshProduce, fruitful]),
   new Product(2, 'Apple', APPLE, [orangeHarvest]),
   new Product(3, 'Banana', BANANAS, [fruitful]),
+  new Product(4, 'Orange', ORANGE, [
+    freshProduce,
+    fruitful,
+    africaProduce,
+    orangeHarvest,
+  ]),
+  new Product(5, 'Apple', APPLE, [orangeHarvest]),
+  new Product(6, 'Banana', BANANAS, [fruitful]),
+  new Product(7, 'Orange', ORANGE, [freshProduce, fruitful]),
+  new Product(8, 'Apple', APPLE, [orangeHarvest, africaProduce]),
+  new Product(9, 'Banana', BANANAS, [orangeHarvest]),
 ];

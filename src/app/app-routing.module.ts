@@ -4,6 +4,7 @@ import { ProductsOverviewComponent } from './products-overview/products-overview
 import { ProductDetailsComponent } from './product-details/product-details.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { UpdateCompanyInfoComponent } from './update-company-info/update-company-info.component';
+import { AddCompanyInfoComponent } from './add-company-info/add-company-info.component';
 
 const routes: Routes = [
   {
@@ -22,6 +23,10 @@ const routes: Routes = [
   {
     path: 'update-company/:idProd/:idCom',
     component: UpdateCompanyInfoComponent,
+  },
+  {
+    path: 'add-new-company/:id',
+    component: AddCompanyInfoComponent,
   },
   {
     path: 'not-found',

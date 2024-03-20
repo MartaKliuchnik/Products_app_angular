@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core';
-import { Observable, Subject, of } from 'rxjs';
+import { Observable, of } from 'rxjs';
 import { Product } from '../model/product';
 import { products } from '../mock-data/data';
 import { Company } from '../model/company';
@@ -9,18 +9,34 @@ import { throwError } from 'rxjs';
   providedIn: 'root',
 })
 export class ProductsService {
-  private newCompanySubject = new Subject<Company>();
-  newCompany$ = this.newCompanySubject.asObservable();
   products: Product[] = products;
+  private readonly productsKey = 'products';
 
-  constructor() {}
+  constructor() {
+    let localStorageData = this.getProductsFromLocalStorage();
+    if (!localStorageData) {
+      this.getProductsFromLocalStorage();
+      this.setDataToLocalStorage();
+    } else {
+      this.products = localStorageData;
+    }
+  }
+
+  setDataToLocalStorage(): void {
+    localStorage.setItem(this.productsKey, JSON.stringify(this.products));
+  }
+
+  getProductsFromLocalStorage(): Product[] {
+    return JSON.parse(localStorage.getItem(this.productsKey));
+  }
 
   getProducts(): Observable<Product[]> {
-    return of(products);
+    this.getProductsFromLocalStorage();
+    return of(this.products);
   }
 
   getProduct(id: number): Observable<Product | undefined> {
-    const product = products.find((product) => product.id === id);
+    const product = this.products.find((product) => product.id === id);
     return of(product);
   }
 
@@ -45,15 +61,26 @@ export class ProductsService {
     }
   }
 
-  setNewCompany(newCompany: Company) {
-    this.newCompanySubject.next(newCompany);
+  addNewCompany(newCompany: Company, productId: number) {
+    const productIndex = this.products.findIndex(
+      (product) => product.id === productId
+    );
+    if (productIndex !== -1) {
+      const product = this.products[productIndex];
+      product.companies.push(newCompany);
+      this.setDataToLocalStorage();
+      return of(true);
+    } else {
+      return throwError(() => {
+        return 'Product not found';
+      });
+    }
   }
 
   updateCompany(updatedCompany: Company, productId: number, companyId: number) {
     const productIndex = this.products.findIndex(
       (product) => product.id === productId
     );
-
     if (productIndex !== -1) {
       const product = this.products[productIndex];
       const companyIndex = product.companies.findIndex(
@@ -63,6 +90,7 @@ export class ProductsService {
       if (companyIndex !== -1) {
         const updatedCompanyWithId = { ...updatedCompany, id: companyId };
         product.companies[companyIndex] = updatedCompanyWithId;
+        this.setDataToLocalStorage();
         return of(product.companies[companyIndex]);
       } else {
         return throwError(() => {
@@ -76,16 +104,24 @@ export class ProductsService {
     }
   }
 
-  deleteCompany(productId: number, companyId: number): Observable<void> {
+  deleteCompany(productId: number, companyId: number): Observable<Product> {
     const productIndex = this.products.findIndex(
       (product) => product.id === productId
     );
     if (productIndex !== -1) {
       const product = this.products[productIndex];
-      product.companies = product.companies.filter(
-        (company) => company.id !== companyId
-      );
-      return of(undefined);
+      if (product) {
+        product.companies = product.companies.filter(
+          (company) => company.id !== companyId
+        );
+
+        this.setDataToLocalStorage();
+        return of(product);
+      } else {
+        return throwError(() => {
+          return 'Product not found';
+        });
+      }
     } else {
       return throwError(() => {
         return 'Product not found';

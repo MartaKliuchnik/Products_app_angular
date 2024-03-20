@@ -1,5 +1,6 @@
-import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Company } from '../model/company';
+import { ValidationErrors } from '@angular/forms';
 
 import {
   FormBuilder,
@@ -9,6 +10,8 @@ import {
 } from '@angular/forms';
 import { ProductsService } from '../service/products.service';
 import { Town } from '../model/town';
+import { ActivatedRoute, Router } from '@angular/router';
+import { catchError, of } from 'rxjs';
 
 @Component({
   selector: 'app-add-company-info',
@@ -21,26 +24,33 @@ export class AddCompanyInfoComponent implements OnInit {
   @ViewChild('keywords') keywordInput!: ElementRef;
   form: FormGroup;
   towns!: Town[];
-  predefinedKeywords: string[] = [
-    'apple',
-    'apricos',
-    'banana',
-    'orange',
-    'pear',
-  ];
+  companyMessage: string | undefined;
+  showNameError: boolean = false;
+  showKeywordsError: boolean = false;
+  showBidAmountError: boolean = false;
+  showCampaignFundError: boolean = false;
+  showRadiusError: boolean = false;
 
   constructor(
     private formBuilder: FormBuilder,
-    private productsService: ProductsService
+    private productsService: ProductsService,
+    private router: Router,
+    private route: ActivatedRoute
   ) {
     this.form = this.formBuilder.group({
       name: ['', Validators.required],
       keywords: ['', Validators.required],
-      bidAmount: ['', [Validators.required, Validators.min(10)]],
-      campaignFund: ['', Validators.required],
+      bidAmount: [
+        '',
+        [Validators.required, Validators.min(10), this.validateNumber],
+      ],
+      campaignFund: ['', Validators.required, this.validateNumberAsync],
       status: ['', Validators.required],
       town: ['', Validators.required],
-      radius: ['', [Validators.required, Validators.min(0)]],
+      radius: [
+        '',
+        [Validators.required, Validators.min(0), this.validateNumber],
+      ],
     });
   }
 
@@ -54,15 +64,23 @@ export class AddCompanyInfoComponent implements OnInit {
     ];
   }
 
-  checkKeywords(event: Event) {
-    let currentValue = this.predefinedKeywords.filter((keyword: string) =>
-      keyword.toLowerCase().startsWith((event.target as HTMLInputElement).value)
-    );
-
-    if (currentValue) {
-      // this.form.get('keywords')?.setValue(currentValue);
-      this.keywordInput.nativeElement.placeholder = currentValue;
+  validateNumber(checkItem: any) {
+    const value = checkItem.value;
+    if (isNaN(value)) {
+      return { invalidNumber: true };
     }
+    return null;
+  }
+
+  validateNumberAsync(checkItem: any): Promise<ValidationErrors | null> {
+    return new Promise((resolve, reject) => {
+      const value = checkItem.value;
+      if (isNaN(value)) {
+        resolve({ invalidNumber: true });
+      } else {
+        resolve(null);
+      }
+    });
   }
 
   onSubmit() {
@@ -79,11 +97,31 @@ export class AddCompanyInfoComponent implements OnInit {
         radius: formData.radius,
       };
 
-      this.productsService.setNewCompany(newCompany);
-
-      this.form.reset();
-    } else {
-      console.error('Form is invalid');
+      const id = +this.route.snapshot.params['id'];
+      this.productsService
+        .addNewCompany(newCompany, id)
+        .pipe(
+          catchError(() => {
+            console.error('Form is invalid');
+            return of(null);
+          })
+        )
+        .subscribe((data) => {
+          const countdownSeconds = 3;
+          if (data) {
+            let remainingSeconds = countdownSeconds;
+            const countdownInterval = setInterval(() => {
+              remainingSeconds--;
+              this.companyMessage = `Company has created. Redirecting in ${remainingSeconds} seconds...`;
+              if (remainingSeconds <= 0) {
+                clearInterval(countdownInterval);
+                this.companyMessage = undefined;
+                this.router.navigate(['product-details', id]);
+                this.form.reset();
+              }
+            }, 1000);
+          }
+        });
     }
   }
 }

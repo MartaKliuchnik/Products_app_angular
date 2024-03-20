@@ -14,7 +14,6 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { UpdateCompanyInfoComponent } from './update-company-info/update-company-info.component';
 import { CommonModule } from '@angular/common';
-import { TypeaheadDirective } from './typeahead.directive';
 
 @NgModule({
   declarations: [
@@ -27,6 +26,7 @@ import { TypeaheadDirective } from './typeahead.directive';
     TypeaheadDirective,
   ],
   imports: [
+    CommonModule,
     BrowserModule,
     AppRoutingModule,
     FormsModule,

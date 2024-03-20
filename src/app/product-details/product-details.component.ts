@@ -3,7 +3,6 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../service/products.service';
 import { Product } from '../model/product';
 import { Company } from '../model/company';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-product-details',
@@ -13,34 +12,13 @@ import { Subscription } from 'rxjs';
 export class ProductDetailsComponent implements OnInit {
   product!: Product;
   newCompany: Company | undefined;
-  private newCompanySubscription: Subscription;
+  totalBudget: number;
 
   constructor(
     private route: ActivatedRoute,
     private productsService: ProductsService,
     private router: Router
-  ) {
-    this.newCompanySubscription = this.productsService.newCompany$.subscribe(
-      (newCompany) => {
-        this.newCompany = newCompany;
-        if (this.product) {
-          this.product.companies.push(newCompany);
-        }
-      }
-    );
-  }
-
-  deleteCompany(productId: number, companyId: number) {
-    this.productsService.deleteCompany(productId, companyId).subscribe(() => {
-      this.product.companies = this.product.companies.filter(
-        (company) => company.id !== companyId
-      );
-    });
-  }
-
-  goToUpdateCompany(productId: number, companyId: number | undefined) {
-    this.router.navigate(['update-company', productId, companyId]);
-  }
+  ) {}
 
   ngOnInit() {
     const id = +this.route.snapshot.params['id'];
@@ -53,9 +31,31 @@ export class ProductDetailsComponent implements OnInit {
           this.product = product;
         }
       });
+
+    this.updateBudget();
   }
 
-  ngOnDestroy() {
-    this.newCompanySubscription.unsubscribe();
+  updateBudget() {
+    this.totalBudget = this.product?.companies?.reduce(
+      (sum, current) => +current.campaignFund + sum,
+      0
+    );
+  }
+
+  deleteCompany(productId: number, companyId: number) {
+    this.productsService
+      .deleteCompany(productId, companyId)
+      .subscribe((product: Product) => {
+        this.product = product;
+      });
+    this.updateBudget();
+  }
+
+  goToAddCompanyPage(productId: number) {
+    this.router.navigate(['add-new-company', productId]);
+  }
+
+  goToUpdateCompany(productId: number, companyId: number | undefined) {
+    this.router.navigate(['update-company', productId, companyId]);
   }
 }
