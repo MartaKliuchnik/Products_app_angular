@@ -21,7 +21,6 @@ import { catchError, of } from 'rxjs';
   imports: [ReactiveFormsModule],
 })
 export class AddCompanyInfoComponent implements OnInit {
-  @ViewChild('keywords') keywordInput!: ElementRef;
   form: FormGroup;
   towns!: Town[];
   companyMessage: string | undefined;

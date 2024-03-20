@@ -1,11 +1,11 @@
-<div class="container page">
-  <div class="row">
-    <h1 class="text-xs-center">Update Company Information</h1>
+<div class="container page wrapper-custom">
+  <div class="row justify-content-center">
+    <h1 class="text-xs-center text-center">Update Company Information</h1>
 
     <form
       [formGroup]="form"
       (ngSubmit)="onSubmit(form.value)"
-      class="form-cont"
+      class="mt-4 form-cont"
     >
       <fieldset class="form-group">
         <input
@@ -53,11 +53,11 @@
         @if(form.get('bidAmount')?.errors?.["required"]){
         <div class="text-muted pt-2">Bid amount is required.</div>
         } @if(form.get('bidAmount')?.errors?.["min"]){
-        <div class="text-muted pt-2">
+        <div class="text-danger pt-2">
           Bid amount must be at least 10 the minimum amount.
         </div>
         } @if(form.get('bidAmount')?.errors?.["invalidNumber"]){
-        <div class="text-muted pt-2">Bid amount must be a valid number.</div>
+        <div class="text-danger pt-2">Bid amount must be a valid number.</div>
         }}
       </fieldset>
 
@@ -75,12 +75,16 @@
         @if(form.get('campaignFund')?.errors?.["required"]){
         <div class="text-muted pt-2">Campaign fund is required.</div>
         } @if(form.get('campaignFund')?.errors?.["invalidNumber"]){
-        <div class="text-muted pt-2">Campaign fund must be a valid number.</div>
+        <div class="text-danger pt-2">
+          Campaign fund must be a valid number.
+        </div>
         } }
       </fieldset>
 
-      <fieldset class="form-group">
-        <label>Status:</label>
+      <fieldset
+        class="form-group form-group d-flex align-items-center gap-5 my-2"
+      >
+        <label class="lab-custom">Status:</label>
         <div class="form-check">
           <input
             class="form-check-input"
@@ -128,7 +132,7 @@
         @if(form.get('radius')?.errors?.["required"]){
         <div class="text-muted pt-2">Radius (in km) is required.</div>
         } @if(form.get('radius')?.errors?.["invalidNumber"]){
-        <div class="text-muted pt-2">Radius must be a valid number.</div>
+        <div class="text-danger pt-2">Radius must be a valid number.</div>
         }}
       </fieldset>
 
@@ -136,7 +140,7 @@
 
       <button
         type="submit"
-        class="btn btn-lg btn-success"
+        class="btn btn-lg mt-2 btn-custom"
         [disabled]="!form.valid"
       >
         Update Company

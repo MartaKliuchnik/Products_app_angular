@@ -1,12 +1,35 @@
-<header class="mb-5">
-  <nav class="navbar navbar-expand-lg navbar-dark bg-dark px-4">
-    <div
-      class="w-100 d-flex align-items-center justify-content-end gap-4 header-cont"
-    >
-      <a *ngIf="!isHomePage" routerLink="/" routerLinkActive="active">Home</a>
-      <p *ngIf="isHomePage" class="welcome-info">
-        Welcome to Our Product Portfolio
-      </p>
+<header class="mb-5 fixed-top">
+  <nav class="navbar navbar-expand navbar-dark px-4 bg-custom">
+    <span class="navbar-brand mb-0 h1 span-size-custom">E-Company</span>
+    <div class="w-100 d-flex align-items-center justify-content-end gap-4">
+      <ul class="navbar-nav">
+        <li *ngIf="isHomePage" class="nav-item active">
+          <span>Welcome to Our Product Portfolio</span>
+        </li>
+
+        <li *ngIf="!isHomePage" class="nav-item active">
+          <a routerLink="/" routerLinkActive="active">Home</a>
+        </li>
+      </ul>
     </div>
   </nav>
 </header>
+
+<!-- <header class="mb-5">
+  <nav class="navbar navbar-expand-lg navbar-light bg-custom">
+    <span class="navbar-brand mb-0 h1">E-Company</span>
+
+    <div class="collapse navbar-collapse" id="navbarNav">
+      <ul class="navbar-nav">
+        <li *ngIf="!isHomePage" class="nav-item active">
+          <a routerLink="/" routerLinkActive="active">Home</a>
+        </li>
+        <li *ngIf="isHomePage" class="nav-item active">
+          <a routerLink="#" routerLinkActive="active" class="greet-custom"
+            >Welcome to Our Product Portfolio</a
+          >
+        </li>
+      </ul>
+    </div>
+  </nav>
+</header> -->

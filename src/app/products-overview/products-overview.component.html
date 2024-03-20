@@ -1,16 +1,27 @@
-<div class="container">
+<div class="container wrapper-custom">
   <div class="row justify-content-center">
     @for (product of products; track product){
     <div class="col-lg-3 col-md-4 col-sm-6 m-4">
-      <div
-        class="d-flex flex-column p-2 justify-content-between align-items-center card-cont"
-        (click)="goToProductDetails(product.id)"
-      >
-        <div class="icon-cont">
-          <img [src]="product.image" [alt]="product.name" />
+      <div class="card custom-border">
+        <div class="card-body">
+          <div class="d-flex justify-content-center image-wrapper">
+            <img
+              class="card-img-top img-fluid"
+              [src]="product.image"
+              [alt]="product.name"
+            />
+          </div>
+          <div class="text-center mt-3">
+            <h5 class="card-title">{{ product.name }}</h5>
+          </div>
         </div>
-        <div class="d-flex flex-column align-items-center">
-          <p>{{ product.name }}</p>
+        <div class="card-footer text-center custom-border-bottom">
+          <button
+            class="btn custom-btn"
+            (click)="goToProductDetails(product.id)"
+          >
+            View Details
+          </button>
         </div>
       </div>
     </div>

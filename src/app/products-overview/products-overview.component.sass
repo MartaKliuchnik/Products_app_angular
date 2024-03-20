@@ -1,19 +1,25 @@
-.card-cont
-    width: 270px
-    height: 270px
-    cursor: pointer
-    border-radius: 20px
-    border: 2px solid black
-    font-size: 1.5em 
+.custom-border
+    border-radius: 30px
+.custom-border-bottom
+    border-bottom-left-radius: 30px
+    border-bottom-right-radius: 30px
+.card
     transition: all 0.3s
     &:hover
-        background-color: #6e6a6a
         transform: scale(1.2)
-        color: #FFFFFF
-    & .icon-cont 
-        width: 70%
-        height: 70%   
-    & .icon-cont>img
+        box-shadow: 0 4px 8px rgba(0, 0, 0, 0.4)
+    & .image-wrapper
         width: 100%
-        height: 100%
-        
+        height: 15rem
+        &>img
+            width: 100%
+            height: 100%
+            object-fit: contain
+    & .custom-btn
+        font-size: 1.2rem
+        background-color: #ff6347
+        color: #ffffff
+        border-color: #ff6347
+        &:hover
+            background-color: #cc4c38
+            border-color: #cc4c38

@@ -14,6 +14,8 @@ import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HeaderComponent } from './header/header.component';
 import { UpdateCompanyInfoComponent } from './update-company-info/update-company-info.component';
 import { CommonModule } from '@angular/common';
+import { HttpClientModule } from '@angular/common/http';
+import { AngularSvgIconModule, provideAngularSvgIcon } from 'angular-svg-icon';
 
 @NgModule({
   declarations: [
@@ -23,7 +25,6 @@ import { CommonModule } from '@angular/common';
     NotFoundComponent,
     HeaderComponent,
     UpdateCompanyInfoComponent,
-    TypeaheadDirective,
   ],
   imports: [
     CommonModule,
@@ -33,8 +34,10 @@ import { CommonModule } from '@angular/common';
     ReactiveFormsModule,
     AddCompanyInfoComponent,
     CommonModule,
+    HttpClientModule,
+    AngularSvgIconModule.forRoot(),
   ],
-  providers: [provideClientHydration()],
+  providers: [provideClientHydration(), provideAngularSvgIcon()],
   bootstrap: [AppComponent],
 })
 export class AppModule {}

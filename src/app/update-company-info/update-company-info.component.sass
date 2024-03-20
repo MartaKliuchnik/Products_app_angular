@@ -1,12 +1,42 @@
-.form-cont
-    display: flex
-    width: 40em
-    flex-direction: column
-    gap:10px
-    & select
-        font-size: 1.25rem
-        min-height: calc(1.5em + 1rem + calc(var(--bs-border-width)* 2))
+.wrapper-custom
+    & h1
+        color: #cc4c38
+    .form-cont
+        display: flex
+        width: 40em
+        flex-direction: column
+        gap:10px
+        & select
+            font-size: 1.25rem
+            min-height: calc(1.5em + 1rem + calc(var(--bs-border-width)* 2))
+            
+        &>button
+            width: 15rem
         
-    &>button
-        width: 13em
-    
+        .form-control:focus
+            border-color: #cc4c38
+            box-shadow: 0 0 0 0.25rem rgba(204, 76, 56, 0.25)
+
+        .lab-custom
+            font-size: 1.25rem
+
+        .form-check-input[type="radio"]:checked 
+            background-color: #cc4c38
+        
+        .form-check-input[type="radio"] 
+            width: 20px
+            height: 20px
+            border-radius: 50%
+            border: 2px solid #cc4c38
+            background-color: white
+            outline: none
+            cursor: pointer
+        
+        .btn-custom
+            font-size: 1.3rem
+            background-color: #ff6347
+            color: #ffffff
+            border-color: #ff6347
+            &:hover
+                background-color: #cc4c38
+                border-color: #cc4c38

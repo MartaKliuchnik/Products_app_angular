@@ -43,23 +43,25 @@ const africaProduce: Company = new Company(
   50
 );
 
-const BANANAS = '../../assets/image/bananas.png';
+const BANANA = '../../assets/image/bananas.png';
 const ORANGE = '../../assets/image/orange.png';
 const APPLE = '../../assets/image/apple.png';
+const APPLES = '../../assets/image/apples.jpeg';
+const AVOCADO = '../../assets/image/avocado.jpeg';
+const BROCCOLI = '../../assets/image/broccoli.png';
+const TOMATOES = '../../assets/image/tomatoes.jpeg';
 
 export const products: Product[] = [
-  new Product(1, 'Orange', ORANGE, [freshProduce, fruitful]),
   new Product(2, 'Apple', APPLE, [orangeHarvest]),
-  new Product(3, 'Banana', BANANAS, [fruitful]),
-  new Product(4, 'Orange', ORANGE, [
+  new Product(3, 'Banana', BANANA, [fruitful]),
+  new Product(4, 'Avocado', AVOCADO, [
     freshProduce,
     fruitful,
     africaProduce,
     orangeHarvest,
   ]),
-  new Product(5, 'Apple', APPLE, [orangeHarvest]),
-  new Product(6, 'Banana', BANANAS, [fruitful]),
-  new Product(7, 'Orange', ORANGE, [freshProduce, fruitful]),
-  new Product(8, 'Apple', APPLE, [orangeHarvest, africaProduce]),
-  new Product(9, 'Banana', BANANAS, [orangeHarvest]),
+  new Product(1, 'Orange', ORANGE, [freshProduce, fruitful]),
+  new Product(6, 'Broccoli', BROCCOLI, [fruitful]),
+  new Product(5, 'Tomato', TOMATOES, [orangeHarvest]),
+  new Product(8, 'Apple', APPLES, [orangeHarvest, africaProduce]),
 ];

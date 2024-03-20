@@ -1,12 +1,12 @@
-<div class="container wrapper">
+<div class="container wrapper-custom">
   <div class="row justify-content-center">
     <div class="d-flex justify-content-between align-items-center">
       <div class="d-flex flex-column gap-2">
-        <h2>{{ product.name }}</h2>
+        <h2 class="title-custom">{{ product.name }}</h2>
         <p class="text-muted lead">Total budget: {{ totalBudget }}</p>
       </div>
       <button
-        class="btn btn-outline-success btn-add-company"
+        class="btn btn-add-company"
         (click)="goToAddCompanyPage(product.id)"
       >
         Add Company
@@ -17,44 +17,60 @@
       *ngIf="product.companies && product.companies.length > 0; else emptyBlock"
     >
       @for(company of product.companies; track company){
-      <div class="col-lg-3 col-md-4 col-sm-6 m-4">
-        <div class="d-flex flex-column align-items-center mx-auto mb-5">
-          <div
-            class="d-flex flex-column align-items-center card border shadow col-md-3 mx-auto card-body m-2"
-          >
-            <p>Company name: {{ company.name }}</p>
-            <p>Keywords: {{ company.keywords }}</p>
-            <p>Bid amount: {{ company.bidAmount }}</p>
-            <p>Campaign fund: {{ company.campaignFund }}</p>
-            <p>Status: {{ company.status ? "on" : "off" }}</p>
-            <p>
-              Town:
-              {{ company.town }}
-            </p>
-            <p>Radius (km): {{ company.radius }}</p>
+      <div class="col-lg-3 col-md-4 col-sm-6 gap-4 m-4">
+        <div class="col mb-4">
+          <div class="card custom-border style=" style="width: 100%">
+            <div class="card-body p-4" style="width: 100%">
+              <p class="font-weight-bold text-center pb-2 text-custom">
+                {{ company.name }}
+              </p>
+              <p class="card-text">Keywords: {{ company.keywords }}</p>
+              <p class="card-text">Bid amount: {{ company.bidAmount }}</p>
+              <p class="card-text">Campaign fund: {{ company.campaignFund }}</p>
+              <p class="card-text">
+                Status: {{ company.status ? "on" : "off" }}
+              </p>
+              <p class="card-text">Town: {{ company.town }}</p>
+              <p class="card-text">Radius (km): {{ company.radius }}</p>
 
-            <button (click)="deleteCompany(product.id, company.id)">
-              delete
-            </button>
-            <button
-              class="mt-4"
-              (click)="goToUpdateCompany(product.id, company.id)"
-            >
-              update
-            </button>
+              <div
+                class="d-flex align-items-center justify-content-center gap-4"
+              >
+                <button
+                  class="btn"
+                  (click)="deleteCompany(product.id, company.id)"
+                >
+                  <svg-icon
+                    src="../../assets/image/delete.svg"
+                    [svgStyle]="{
+                      'width.px': 30,
+                      'height.px': 30
+                    }"
+                  ></svg-icon>
+                </button>
+
+                <button
+                  class="btn"
+                  (click)="goToUpdateCompany(product.id, company.id)"
+                >
+                  <svg-icon
+                    src="../../assets/image/basic_edit.svg"
+                    [svgStyle]="{ 'width.px': 30, 'height.px': 30 }"
+                  ></svg-icon>
+                </button>
+              </div>
+            </div>
           </div>
         </div>
       </div>
       }
     </ng-container>
     <ng-template #emptyBlock>
-      <div class="mt-5 d-flex flex-column align-items-center">
-        <p class="fw-bold font-monospace text-muted">
+      <div class="mt-5 d-flex flex-column align-items-center text-custom">
+        <p class="fw-bold text-custom">
           Looks like there are no companies here.
         </p>
-        <p class="fw-bold font-monospace text-muted">
-          Why not add your first one?
-        </p>
+        <p class="fw-bold text-custom">Why not add your first one?</p>
       </div>
     </ng-template>
   </div>
