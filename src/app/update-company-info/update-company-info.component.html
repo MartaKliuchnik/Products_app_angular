@@ -141,7 +141,8 @@
       <button
         type="submit"
         class="btn btn-lg mt-2 btn-custom"
-        [disabled]="!form.valid"
+        #submitButton
+        [disabled]="form.invalid"
       >
         Update Company
       </button>

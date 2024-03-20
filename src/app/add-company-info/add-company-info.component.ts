@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Company } from '../model/company';
 import { ValidationErrors } from '@angular/forms';
 
@@ -29,6 +29,7 @@ export class AddCompanyInfoComponent implements OnInit {
   showBidAmountError: boolean = false;
   showCampaignFundError: boolean = false;
   showRadiusError: boolean = false;
+  @ViewChild('submitButton') submitButton!: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -83,6 +84,7 @@ export class AddCompanyInfoComponent implements OnInit {
   }
 
   onSubmit() {
+    this.submitButton.nativeElement.disabled = true;
     if (this.form.valid) {
       const formData = this.form.value;
       const newCompany: Company = {

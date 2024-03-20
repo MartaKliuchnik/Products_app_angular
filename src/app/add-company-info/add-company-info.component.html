@@ -133,8 +133,9 @@
       <p>{{ companyMessage }}</p>
       <button
         type="submit"
+        #submitButton
         class="btn btn-lg mt-2 btn-custom"
-        [disabled]="!form.valid"
+        [disabled]="form.invalid"
       >
         Create company
       </button>

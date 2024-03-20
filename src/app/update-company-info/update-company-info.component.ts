@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ProductsService } from '../service/products.service';
 import { Company } from '../model/company';
@@ -25,6 +25,7 @@ export class UpdateCompanyInfoComponent implements OnInit {
   showBidAmountError: boolean = false;
   showCampaignFundError: boolean = false;
   showRadiusError: boolean = false;
+  @ViewChild('submitButton') submitButton!: ElementRef;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -101,6 +102,7 @@ export class UpdateCompanyInfoComponent implements OnInit {
   }
 
   onSubmit(updatedCompany: Company) {
+    this.submitButton.nativeElement.disabled = true;
     const idProduct = +this.route.snapshot.params['idProd'];
     const idCompany = +this.route.snapshot.params['idCom'];
     const countdownSeconds = 3;
