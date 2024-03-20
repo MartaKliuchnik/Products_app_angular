@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { Company } from '../model/company';
 import { ValidationErrors } from '@angular/forms';
-
 import {
   FormBuilder,
   FormGroup,
@@ -11,7 +10,8 @@ import {
 import { ProductsService } from '../service/products.service';
 import { Town } from '../model/town';
 import { ActivatedRoute, Router } from '@angular/router';
-import { catchError, of } from 'rxjs';
+import { Observable, catchError, of } from 'rxjs';
+import { map, debounceTime, distinctUntilChanged } from 'rxjs/operators';
 
 @Component({
   selector: 'app-add-company-info',
@@ -29,6 +29,15 @@ export class AddCompanyInfoComponent implements OnInit {
   showBidAmountError: boolean = false;
   showCampaignFundError: boolean = false;
   showRadiusError: boolean = false;
+  keywords: string[] = [
+    'apple',
+    'tomato',
+    'avocado',
+    'bananas',
+    'broccoli',
+    'orange',
+  ];
+  keywordResult: boolean = true;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -61,6 +70,25 @@ export class AddCompanyInfoComponent implements OnInit {
       Town.POZNAN,
       Town.WROCLAW,
     ];
+  }
+
+  searchKeywords = (text$: Observable<string>) =>
+    text$.pipe(
+      debounceTime(200),
+      distinctUntilChanged(),
+      map((term) =>
+        term.length < 2
+          ? []
+          : this.keywords
+              .filter((keyword) =>
+                keyword.toLowerCase().includes(term.toLowerCase())
+              )
+              .slice(0, 10)
+      )
+    );
+
+  onKeywordSelected(keyword: string) {
+    this.form.get('keywords').setValue(keyword);
   }
 
   validateNumber(checkItem: any) {

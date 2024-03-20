@@ -24,6 +24,8 @@
           type="text"
           class="form-control form-control-lg"
           placeholder="Keywords"
+          [typeahead]="keywords"
+          typeaheadOptionField="'name'"
           formControlName="keywords"
           (focus)="showKeywordsError = true"
           (blur)="showKeywordsError = false"
@@ -33,6 +35,16 @@
         @if(form.get('keywords')?.errors?.["required"]){
         <div class="text-muted pt-2">Keywords is required.</div>
         } }
+
+        <ng-template #keywordResult let-result>
+          <ng-container *ngIf="result">
+            <div *ngFor="let keyword of result">
+              <a class="dropdown-item" (click)="onKeywordSelected(keyword)">{{
+                keyword
+              }}</a>
+            </div>
+          </ng-container>
+        </ng-template>
       </fieldset>
 
       <fieldset class="form-group">

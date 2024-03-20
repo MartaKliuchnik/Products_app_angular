@@ -16,6 +16,7 @@ import { UpdateCompanyInfoComponent } from './update-company-info/update-company
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule, provideAngularSvgIcon } from 'angular-svg-icon';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
 
 @NgModule({
   declarations: [
@@ -36,6 +37,7 @@ import { AngularSvgIconModule, provideAngularSvgIcon } from 'angular-svg-icon';
     CommonModule,
     HttpClientModule,
     AngularSvgIconModule.forRoot(),
+    TypeaheadModule.forRoot(),
   ],
   providers: [provideClientHydration(), provideAngularSvgIcon()],
   bootstrap: [AppComponent],
