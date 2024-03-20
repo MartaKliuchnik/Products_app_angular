@@ -13,15 +13,25 @@ export class ProductsService {
   private readonly productsKey = 'products';
 
   constructor() {
-    let currentData = this.getDataFromLocalStorage();
-    if (!currentData) {
+    let localStorageData = this.getProductsFromLocalStorage();
+    if (!localStorageData) {
+      this.getProductsFromLocalStorage();
       this.setDataToLocalStorage();
     } else {
-      this.products = currentData;
+      this.products = localStorageData;
     }
   }
 
+  setDataToLocalStorage(): void {
+    localStorage.setItem(this.productsKey, JSON.stringify(this.products));
+  }
+
+  getProductsFromLocalStorage(): Product[] {
+    return JSON.parse(localStorage.getItem(this.productsKey));
+  }
+
   getProducts(): Observable<Product[]> {
+    this.getProductsFromLocalStorage();
     return of(this.products);
   }
 
@@ -71,7 +81,6 @@ export class ProductsService {
     const productIndex = this.products.findIndex(
       (product) => product.id === productId
     );
-
     if (productIndex !== -1) {
       const product = this.products[productIndex];
       const companyIndex = product.companies.findIndex(
@@ -101,24 +110,22 @@ export class ProductsService {
     );
     if (productIndex !== -1) {
       const product = this.products[productIndex];
-      this.products[productId].companies = product.companies.filter(
-        (company) => company.id !== companyId
-      );
+      if (product) {
+        product.companies = product.companies.filter(
+          (company) => company.id !== companyId
+        );
 
-      this.setDataToLocalStorage();
-      return of(this.products[productId]);
+        this.setDataToLocalStorage();
+        return of(product);
+      } else {
+        return throwError(() => {
+          return 'Product not found';
+        });
+      }
     } else {
       return throwError(() => {
         return 'Product not found';
       });
     }
-  }
-
-  setDataToLocalStorage(): void {
-    localStorage.setItem(this.productsKey, JSON.stringify(this.products));
-  }
-
-  getDataFromLocalStorage(): Product[] {
-    return JSON.parse(localStorage.getItem(this.productsKey));
   }
 }

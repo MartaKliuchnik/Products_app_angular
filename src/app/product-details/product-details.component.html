@@ -10,14 +10,16 @@
       </button>
     </div>
 
-    @if(product.companies && product.companies.length > 0){ @for(company of
-    product.companies; track company){
-    <ng-container>
+    <ng-container
+      *ngIf="product.companies && product.companies.length > 0; else emptyBlock"
+    >
+      @for(company of product.companies; track company){
       <div class="col-lg-3 col-md-4 col-sm-6 m-4">
         <div class="d-flex flex-column align-items-center mx-auto mb-5">
           <div
             class="d-flex flex-column align-items-center card border shadow col-md-3 mx-auto card-body m-2"
           >
+            <p>{{ company.id }}</p>
             <p>Company name: {{ company.name }}</p>
             <p>Keywords: {{ company.keywords }}</p>
             <p>Bid amount: {{ company.bidAmount }}</p>
@@ -41,9 +43,9 @@
           </div>
         </div>
       </div>
+      }
     </ng-container>
-    } } @else {
-    <ng-template>
+    <ng-template #emptyBlock>
       <div class="mt-5 d-flex flex-column align-items-center">
         <p class="fw-bold font-monospace text-muted">
           Looks like there are no companies here.
@@ -53,6 +55,5 @@
         </p>
       </div>
     </ng-template>
-    }
   </div>
 </div>
