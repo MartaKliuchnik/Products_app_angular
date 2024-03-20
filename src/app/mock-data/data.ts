@@ -61,5 +61,5 @@ export const products: Product[] = [
   new Product(6, 'Banana', BANANAS, [fruitful]),
   new Product(7, 'Orange', ORANGE, [freshProduce, fruitful]),
   new Product(8, 'Apple', APPLE, [orangeHarvest, africaProduce]),
-  new Product(9, 'Banana', BANANAS, [fruitful, orangeHarvest]),
+  new Product(9, 'Banana', BANANAS, [orangeHarvest]),
 ];

@@ -12,6 +12,7 @@ import { Company } from '../model/company';
 export class ProductDetailsComponent implements OnInit {
   product!: Product;
   newCompany: Company | undefined;
+  totalBudget: number;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,6 +31,15 @@ export class ProductDetailsComponent implements OnInit {
           this.product = product;
         }
       });
+
+    this.updateBudget();
+  }
+
+  updateBudget() {
+    this.totalBudget = this.product?.companies?.reduce(
+      (sum, current) => +current.campaignFund + sum,
+      0
+    );
   }
 
   deleteCompany(productId: number, companyId: number) {
@@ -38,6 +48,7 @@ export class ProductDetailsComponent implements OnInit {
       .subscribe((product: Product) => {
         this.product = product;
       });
+    this.updateBudget();
   }
 
   goToAddCompanyPage(productId: number) {

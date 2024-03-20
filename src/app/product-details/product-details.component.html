@@ -1,9 +1,12 @@
-<div class="container">
+<div class="container wrapper">
   <div class="row justify-content-center">
-    <div class="d-flex justify-content-between">
-      <h2>{{ product.name }}</h2>
+    <div class="d-flex justify-content-between align-items-center">
+      <div class="d-flex flex-column gap-2">
+        <h2>{{ product.name }}</h2>
+        <p class="text-muted lead">Total budget: {{ totalBudget }}</p>
+      </div>
       <button
-        class="btn btn-outline-success"
+        class="btn btn-outline-success btn-add-company"
         (click)="goToAddCompanyPage(product.id)"
       >
         Add Company
@@ -19,7 +22,6 @@
           <div
             class="d-flex flex-column align-items-center card border shadow col-md-3 mx-auto card-body m-2"
           >
-            <p>{{ company.id }}</p>
             <p>Company name: {{ company.name }}</p>
             <p>Keywords: {{ company.keywords }}</p>
             <p>Bid amount: {{ company.bidAmount }}</p>
