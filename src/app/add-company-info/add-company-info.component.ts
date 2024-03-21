@@ -2,12 +2,7 @@ import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { Company } from '../model/company';
 import { ValidationErrors } from '@angular/forms';
 
-import {
-  FormBuilder,
-  FormGroup,
-  ReactiveFormsModule,
-  Validators,
-} from '@angular/forms';
+import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { ProductsService } from '../service/products.service';
 import { Town } from '../model/town';
 import { ActivatedRoute, Router } from '@angular/router';
@@ -17,8 +12,7 @@ import { catchError, of } from 'rxjs';
   selector: 'app-add-company-info',
   templateUrl: './add-company-info.component.html',
   styleUrl: './add-company-info.component.sass',
-  standalone: true,
-  imports: [ReactiveFormsModule],
+  standalone: false,
 })
 export class AddCompanyInfoComponent implements OnInit {
   form: FormGroup;
@@ -30,6 +24,17 @@ export class AddCompanyInfoComponent implements OnInit {
   showCampaignFundError: boolean = false;
   showRadiusError: boolean = false;
   @ViewChild('submitButton') submitButton!: ElementRef;
+  searchKeyword: string;
+  keywords: string[] = [];
+  states: string[] = [
+    'Apple',
+    'Apples',
+    'Avocado',
+    'Banana',
+    'Broccoli',
+    'Orange',
+    'Tomato',
+  ];
 
   constructor(
     private formBuilder: FormBuilder,

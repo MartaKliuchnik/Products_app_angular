@@ -26,6 +26,16 @@ export class UpdateCompanyInfoComponent implements OnInit {
   showCampaignFundError: boolean = false;
   showRadiusError: boolean = false;
   @ViewChild('submitButton') submitButton!: ElementRef;
+  searchKeyword: string;
+  states: string[] = [
+    'Apple',
+    'Apples',
+    'Avocado',
+    'Banana',
+    'Broccoli',
+    'Orange',
+    'Tomato',
+  ];
 
   constructor(
     private formBuilder: FormBuilder,

@@ -16,6 +16,8 @@ import { UpdateCompanyInfoComponent } from './update-company-info/update-company
 import { CommonModule } from '@angular/common';
 import { HttpClientModule } from '@angular/common/http';
 import { AngularSvgIconModule, provideAngularSvgIcon } from 'angular-svg-icon';
+import { TypeaheadModule } from 'ngx-bootstrap/typeahead';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { AngularSvgIconModule, provideAngularSvgIcon } from 'angular-svg-icon';
     NotFoundComponent,
     HeaderComponent,
     UpdateCompanyInfoComponent,
+    AddCompanyInfoComponent,
   ],
   imports: [
     CommonModule,
@@ -32,10 +35,12 @@ import { AngularSvgIconModule, provideAngularSvgIcon } from 'angular-svg-icon';
     AppRoutingModule,
     FormsModule,
     ReactiveFormsModule,
-    AddCompanyInfoComponent,
+
     CommonModule,
     HttpClientModule,
     AngularSvgIconModule.forRoot(),
+    TypeaheadModule.forRoot(),
+    BrowserAnimationsModule,
   ],
   providers: [provideClientHydration(), provideAngularSvgIcon()],
   bootstrap: [AppComponent],
