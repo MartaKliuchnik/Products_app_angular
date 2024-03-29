@@ -19,14 +19,16 @@
         } }
       </fieldset>
 
+      <!-- [typeahead]="filterStates(form.get('keywords').value)" -->
       <fieldset class="form-group">
         <input
           type="text"
           class="form-control form-control-lg"
           placeholder="Keywords"
           formControlName="keywords"
-          [(ngModel)]="searchKeyword"
-          [typeahead]="states"
+          [(ngModel)]="keywordsFormControl.value"
+          (ngModelChange)="onKeywordSelected($event)"
+          [typeahead]="filterStates(selectedKeyword)"
           (focus)="showKeywordsError = true"
           (blur)="showKeywordsError = false"
         />
