@@ -6,41 +6,41 @@ const orangeHarvest: Company = new Company(
   1,
   'Orange Harvest',
   ['fruit'],
-  2,
+  23,
   20000,
   true,
   Town.WARSAW,
-  20
+  2200
 );
 const fruitful: Company = new Company(
   2,
   'Fruitful',
   ['fruit', 'yellow'],
-  2,
+  25,
   20000,
   true,
   Town.KRAKOW,
-  10
+  700
 );
 const freshProduce: Company = new Company(
   3,
   'Fresh Produce',
   ['fruit', 'citrus'],
-  2,
+  28,
   20000,
   false,
   Town.KRAKOW,
-  50
+  500
 );
 const africaProduce: Company = new Company(
   4,
   'Fresh Produce',
   ['fruit', 'citrus'],
-  2,
+  30,
   20000,
   false,
   Town.WROCLAW,
-  50
+  5050
 );
 
 const BANANA = '../../assets/image/bananas.png';
