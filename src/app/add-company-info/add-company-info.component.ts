@@ -24,11 +24,8 @@ export class AddCompanyInfoComponent implements OnInit {
   showCampaignFundError: boolean = false;
   showRadiusError: boolean = false;
   @ViewChild('submitButton') submitButton!: ElementRef;
-  selectedKeywords: string[] = [];
-  selectedKeyword: string = '';
-  keywordsFormControl = new FormControl();
-
-  keywordsArray: string[] = [
+  searchKeyword: string;
+  states: string[] = [
     'Apple',
     'Apples',
     'Avocado',
@@ -69,63 +66,6 @@ export class AddCompanyInfoComponent implements OnInit {
       Town.POZNAN,
       Town.WROCLAW,
     ];
-  }
-
-  filterStates(input: string): string[] {
-    const searchText = input?.toLowerCase();
-
-    return this.keywordsArray.filter(
-      (state) => state.toLowerCase().indexOf(searchText) > -1
-    );
-    // this.selectedKeywords = this.keywordsArray.filter(
-    //   (state) => state.toLowerCase().indexOf(searchText) > -1
-    // );
-    // console.log(this.keywordsArray);
-    // console.log(this.selectedKeywords);
-
-    // console.log(`remainingKeywords ===>`);
-    // const remainingKeywords = this.keywordsArray.filter(
-    //   (keyword) =>
-    //     !searchText
-    //       .split(',')
-    //       .map((k) => k.trim())
-    //       .includes(keyword.toLowerCase())
-    // );
-    // console.log(remainingKeywords);
-    // return remainingKeywords.filter((state) =>
-    //   state.toLowerCase().includes(searchText)
-    // );
-  }
-
-  onKeywordSelected(keyword: string): void {
-    console.log('2');
-    if (
-      keyword &&
-      keyword.trim() !== '' &&
-      !this.selectedKeywords.includes(keyword)
-    ) {
-      this.selectedKeywords.push(keyword);
-    }
-    this.selectedKeyword = '';
-    this.updateKeywordsInput();
-  }
-
-  removeKeyword(keyword: string): void {
-    console.log('3');
-    const index = this.selectedKeywords.indexOf(keyword);
-    if (index !== -1) {
-      this.selectedKeywords.splice(index, 1);
-      this.updateKeywordsInput();
-    }
-  }
-
-  updateKeywordsInput(): void {
-    console.log('4');
-    this.selectedKeywords = this.selectedKeywords.filter((item) =>
-      this.keywordsArray.includes(item)
-    );
-    this.keywordsFormControl.setValue(this.selectedKeywords.join(', '));
-    console.log(this.keywordsFormControl);
   }
 
   validateNumber(checkItem: any) {

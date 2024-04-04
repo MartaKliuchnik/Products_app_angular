@@ -29,10 +29,6 @@
           class="form-control form-control-lg"
           placeholder="Keywords"
           formControlName="keywords"
-          [(ngModel)]="searchKeyword"
-          [typeahead]="states"
-          (focus)="showKeywordsError = true"
-          (blur)="showKeywordsError = false"
         />
         @if(showKeywordsError && form.get('keywords')?.invalid &&
         [form.get('keywords')?.dirty || form.get('keywords')?.touched]){

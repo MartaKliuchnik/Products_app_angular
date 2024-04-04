@@ -10,17 +10,17 @@ const orangeHarvest: Company = new Company(
   20000,
   true,
   Town.WARSAW,
-  2200
+  2
 );
 const fruitful: Company = new Company(
   2,
   'Fruitful',
-  ['fruit', 'yellow'],
+  ['fruit', 'fresh'],
   25,
   20000,
   true,
   Town.KRAKOW,
-  700
+  7
 );
 const freshProduce: Company = new Company(
   3,
@@ -30,17 +30,17 @@ const freshProduce: Company = new Company(
   20000,
   false,
   Town.KRAKOW,
-  500
+  5
 );
 const africaProduce: Company = new Company(
   4,
   'Fresh Produce',
-  ['fruit', 'citrus'],
+  ['vegetables', 'fresh'],
   30,
   20000,
   false,
   Town.WROCLAW,
-  5050
+  1
 );
 
 const BANANA = '../../assets/image/bananas.png';
@@ -54,14 +54,9 @@ const TOMATOES = '../../assets/image/tomatoes.jpeg';
 export const products: Product[] = [
   new Product(2, 'Apple', APPLE, [orangeHarvest]),
   new Product(3, 'Banana', BANANA, [fruitful]),
-  new Product(4, 'Avocado', AVOCADO, [
-    freshProduce,
-    fruitful,
-    africaProduce,
-    orangeHarvest,
-  ]),
+  new Product(4, 'Avocado', AVOCADO, [africaProduce]),
   new Product(1, 'Orange', ORANGE, [freshProduce, fruitful]),
-  new Product(6, 'Broccoli', BROCCOLI, [fruitful]),
-  new Product(5, 'Tomato', TOMATOES, [orangeHarvest]),
-  new Product(8, 'Apple', APPLES, [orangeHarvest, africaProduce]),
+  new Product(6, 'Broccoli', BROCCOLI, [africaProduce]),
+  new Product(5, 'Tomato', TOMATOES, [africaProduce]),
+  new Product(8, 'Apple', APPLES, [orangeHarvest]),
 ];
